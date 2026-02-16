@@ -173,22 +173,34 @@ export default function Auto3() {
     <div className="bg4">
       <div className="card">
         <h1>🤖 Interactive DFA Simulator (Minimized)</h1>
-        <input
-          className="input"
-          placeholder="Enter binary string (0/1)"
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-        />
-
+        <div class="input-container">
+          <input
+            className="input"
+            id="input"
+            name="text"
+            type="text"
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+          />
+          <label class="label" for="input">
+            Enter binary string (0/1)
+          </label>
+          <div class="topline"></div>
+          <div class="underline"></div>
+        </div>
         <div className="buttons">
-          <button onClick={startSimulation}>▶ Run</button>
-          <button
-            onClick={nextStep}
-            disabled={step >= path.length - 1 && result !== ""}
-          >
-            ▶ Step
+          <button class="button" onClick={startSimulation}>
+            <div class="button-top">▶ Run</div>
+            <div class="button-bottom"></div>
+            <div class="button-base"></div>
           </button>
-          <button className="reset" onClick={reset}>
+
+          <button onClick={nextStep} class="button">
+            <span class="shadow"></span>
+            <span class="edge"></span>
+            <span class="front text"> ▶ Step</span>
+          </button>
+          <button className="button" onClick={reset}>
             🔄 Reset
           </button>
         </div>

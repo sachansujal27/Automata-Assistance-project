@@ -116,6 +116,16 @@ export default function Auto2() {
     setDfaResult({ dfaStates, dfaTransitions, dfaFinalStates });
   };
 
+  /* -------- Reset -------- */
+  const reset = () => {
+    setInput("");
+    setPath([]);
+    setStep(0);
+
+    setExplanation("");
+    setRunning(false);
+    window.speechSynthesis.cancel();
+  };
   /* ================= UI ================= */
   return (
     <>
@@ -170,23 +180,21 @@ export default function Auto2() {
                 style={{ width: "80%" }}
               />
             </div>
+
             <div className="buttons">
-              <button onClick={convertNFAtoDFA} style={{ marginTop: "10px" }}>
-                Convert NFA → DFA
+              <button
+                class="button"
+                onClick={convertNFAtoDFA}
+                style={{ marginTop: "10px" }}
+              >
+                <div class="button-top">▶ Run</div>
+                <div class="button-bottom"></div>
+                <div class="button-base"></div>
               </button>
             </div>
-            <button
-              onClick={resetAll}
-              style={{
-                margin: "20px",
-                marginLeft: "10px",
-                backgroundColor: "#d64339",
-                color: "white",
-              }}
-            >
+            <button className="button" onClick={reset}>
               🔄 Reset
             </button>
-
             <div className="buttons"></div>
             {/* DFA Output */}
             {dfaResult && (

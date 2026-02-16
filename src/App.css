@@ -47,23 +47,23 @@
 
 /* Gradient colors */
 .dfa {
-  background: linear-gradient(135deg, #36d1dc, #5b86e5);
+  background: linear-gradient(135deg, #36d1dc, #df565b);
 }
 
 .nfa {
-  background: linear-gradient(135deg, #f7971e, #ffd200);
+  background: linear-gradient(135deg, #f7971e, #6f4dbc);
 }
 
 .tm {
-  background: linear-gradient(135deg, #ff512f, #dd2476);
+  background: linear-gradient(135deg, #ff512f, #abd346);
 }
 
 .compare {
-  background: linear-gradient(135deg, #11998e, #38ef7d);
+  background: linear-gradient(135deg, #11998e, #e7653e);
 }
 
 .min {
-  background: linear-gradient(135deg, #7f00ff, #e100ff);
+  background: linear-gradient(135deg, #ed24ba, #93c143);
 }
 
 body {
@@ -531,8 +531,26 @@ button:disabled {
     transform: translateX(0);
   }
 }
-/* Minimization */
+/* Diagram */
 
+.bg5 {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #ed24ba, #93c143);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card5 {
+  width: 650px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(12px);
+  padding: 30px;
+  border-radius: 18px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  color: white;
+  animation: fadeIn 1s ease;
+}
 /* Converter NFA to DFA*/
 body {
   font-family: Arial, sans-serif;
@@ -882,7 +900,29 @@ NFA DETAIL */
   height: 220px;
   border-radius: 20px;
   padding-left: 40px;
-  background: linear-gradient(135deg, #66d96a);
+  background: linear-gradient(135deg, #6dba47);
+}
+/* Diagram */
+.Main4 {
+  width: 100%;
+  height: 1300px;
+  background: linear-gradient(135deg, #c253c2, #ab3ba3);
+}
+.an1111 {
+  padding-top: 10px;
+  width: 1000px;
+  height: 40px;
+  background: linear-gradient(135deg, #dc0bbd);
+  border-radius: 20px;
+  padding-left: 40px;
+}
+.an1112 {
+  padding-top: 30px;
+  width: 1000px;
+  height: 220px;
+  border-radius: 20px;
+  padding-left: 40px;
+  background: linear-gradient(135deg, #83287a);
 }
 /* ===== ALEX ===== */
 .alex-speaker {
@@ -962,4 +1002,608 @@ NFA DETAIL */
   width: 300px;
   height: 300px;
   background-color: green;
+}
+/* login css */
+
+/* ===== Login.css ===== */
+/* Place this CSS in src/Login.css */
+
+.login-container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(120deg, #667eea, #764ba2);
+}
+
+.login-card {
+  background: #fff;
+  width: 350px;
+  padding: 40px;
+  border-radius: 15px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+  animation: slideUp 0.8s ease;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.title {
+  text-align: center;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.subtitle {
+  text-align: center;
+  color: #777;
+  margin-bottom: 25px;
+}
+
+.input-group {
+  position: relative;
+  margin-bottom: 25px;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 10px 10px;
+  border: none;
+  border-bottom: 2px solid #ccc;
+  outline: none;
+  font-size: 16px;
+}
+
+.input-group label {
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  color: #999;
+  font-size: 14px;
+  pointer-events: none;
+  transform: translateY(-50%);
+  transition: 0.3s;
+}
+
+.input-group input:focus + label,
+.input-group input:valid + label {
+  top: -5px;
+  font-size: 12px;
+  color: #667eea;
+}
+
+.toggle {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  font-size: 12px;
+  color: #667eea;
+}
+
+.login-btn {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 25px;
+  background: linear-gradient(120deg, #667eea, #764ba2);
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+  transition:
+    transform 0.3s,
+    box-shadow 0.3s;
+}
+
+.login-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.footer-text {
+  margin-top: 20px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.footer-text span {
+  color: #667eea;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+/* From Uiverse.io by dhanushrs1 */
+.button {
+  --color: #2e42ff;
+  padding: 0.8em 2em;
+  background-color: transparent;
+  border-radius: 0.6em;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  font-weight: 700;
+  font-size: 17px;
+  border: 2px solid var(--color);
+  font-family: inherit;
+  text-transform: uppercase;
+  color: #ffffff;
+  z-index: 1;
+  display: inline-block;
+  text-decoration: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.button::before,
+.button::after {
+  content: "";
+  display: block;
+  width: 50px;
+  height: 50px;
+  transform: translate(-50%, -50%);
+  position: absolute;
+  border-radius: 50%;
+  z-index: -1;
+  background-color: var(--color);
+  transition: 0.7s ease-in-out;
+}
+
+.button::before {
+  top: -1em;
+  left: -1em;
+}
+
+.button::after {
+  left: calc(100% + 1em);
+  top: calc(100% + 1em);
+}
+
+.button:hover::before,
+.button:hover::after {
+  height: 410px;
+  width: 410px;
+}
+
+.button:hover {
+  background: linear-gradient(135deg, #2e42ff, #6a75ff);
+  color: #ffffff;
+  border-color: #6a75ff;
+  box-shadow:
+    0 6px 15px rgba(46, 66, 255, 0.4),
+    0 8px 24px rgba(46, 66, 255, 0.2);
+  transform: translateY(-3px);
+}
+
+.button:active {
+  transform: scale(0.97);
+  filter: brightness(0.85);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+  background: linear-gradient(135deg, #2e42ff, #5c6bff);
+}
+
+.button:focus {
+  outline: none;
+  border-color: #7289da;
+  box-shadow: 0 0 0 4px rgba(46, 66, 255, 0.3);
+}
+/* From Uiverse.io by adamgiebl */
+.button {
+  -webkit-appearance: none;
+  appearance: none;
+  position: relative;
+  border-width: 0;
+  padding: 0 8px 12px;
+  min-width: 10em;
+  box-sizing: border-box;
+  background: transparent;
+  font: inherit;
+  cursor: pointer;
+}
+
+.button-top {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 0;
+  padding: 8px 16px;
+  transform: translateY(0);
+  text-align: center;
+  color: #fff;
+  text-shadow: 0 -1px rgba(0, 0, 0, 0.25);
+  transition-property: transform;
+  transition-duration: 0.2s;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.button:active .button-top {
+  transform: translateY(6px);
+}
+
+.button-top::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  border-radius: 4px;
+  width: 100%;
+  height: 100%;
+  box-sizing: content-box;
+  background-image: radial-gradient(#3dcd9e, #369d8d);
+  text-align: center;
+  color: #fff;
+  box-shadow:
+    inset 0 0 0px 1px rgba(255, 255, 255, 0.2),
+    0 1px 2px 1px rgba(255, 255, 255, 0.2);
+  transition-property: border-radius, padding, width, transform;
+  transition-duration: 0.2s;
+}
+
+.button:active .button-top::after {
+  border-radius: 6px;
+  padding: 0 2px;
+}
+
+.button-bottom {
+  position: absolute;
+  z-index: -1;
+  bottom: 4px;
+  left: 4px;
+  border-radius: 8px / 16px 16px 8px 8px;
+  padding-top: 6px;
+  width: calc(100% - 8px);
+  height: calc(100% - 10px);
+  box-sizing: content-box;
+  background-color: #38a19d;
+  background-image:
+    radial-gradient(
+      4px 8px at 4px calc(100% - 8px),
+      rgba(255, 255, 255, 0.25),
+      transparent
+    ),
+    radial-gradient(
+      4px 8px at calc(100% - 4px) calc(100% - 8px),
+      rgba(255, 255, 255, 0.25),
+      transparent
+    ),
+    radial-gradient(16px at -4px 0, white, transparent),
+    radial-gradient(16px at calc(100% + 4px) 0, white, transparent);
+  box-shadow:
+    0px 2px 3px 0px rgba(0, 0, 0, 0.5),
+    inset 0 -1px 3px 3px rgba(0, 0, 0, 0.4);
+  transition-property: border-radius, padding-top;
+  transition-duration: 0.2s;
+}
+
+.button:active .button-bottom {
+  border-radius: 10px 10px 8px 8px / 8px;
+  padding-top: 0;
+}
+
+.button-base {
+  position: absolute;
+  z-index: -2;
+  top: 4px;
+  left: 0;
+  border-radius: 12px;
+  width: 100%;
+  height: calc(100% - 4px);
+  background-color: rgba(0, 0, 0, 0.15);
+  box-shadow:
+    0 1px 1px 0 black,
+    inset 0 2px 2px rgba(0, 0, 0, 0.25);
+}
+/* From Uiverse.io by cssbuttons-io */
+button {
+  position: relative;
+  border: none;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+  outline-offset: 4px;
+  transition: filter 250ms;
+  user-select: none;
+  touch-action: manipulation;
+}
+
+.shadow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  background: hsl(0deg 0% 0% / 0.25);
+  will-change: transform;
+  transform: translateY(2px);
+  transition: transform 600ms cubic-bezier(0.3, 0.7, 0.4, 1);
+}
+
+.edge {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  background: linear-gradient(
+    to left,
+    hsl(340deg 100% 16%) 0%,
+    hsl(340deg 100% 32%) 8%,
+    hsl(340deg 100% 32%) 92%,
+    hsl(340deg 100% 16%) 100%
+  );
+}
+
+.front {
+  display: block;
+  position: relative;
+  padding: 12px 27px;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  color: white;
+  background: hsl(345deg 100% 37%);
+  will-change: transform;
+  transform: translateY(-4px);
+  transition: transform 600ms cubic-bezier(0.1, 0.2, 0.1, 0);
+}
+
+button:hover {
+  filter: brightness(110%);
+}
+
+button:hover .front {
+  transform: translateY(-6px);
+  transition: transform 250ms cubic-bezier(0.3, 0.7, 0.4, 1.5);
+}
+
+button:active .front {
+  transform: translateY(-2px);
+  transition: transform 34ms;
+}
+
+button:hover .shadow {
+  transform: translateY(4px);
+  transition: transform 250ms cubic-bezier(0.3, 0.7, 0.4, 1.5);
+}
+
+button:active .shadow {
+  transform: translateY(1px);
+  transition: transform 34ms;
+}
+
+button:focus:not(:focus-visible) {
+  outline: none;
+}
+/* input */
+/* From Uiverse.io by eslam-hany */
+.input-container {
+  position: relative;
+}
+
+.input {
+  padding: 10px;
+  height: 40px;
+  border: 2px solid #0b2447;
+  border-top: none;
+  border-bottom: none;
+  font-size: 16px;
+  background: transparent;
+  outline: none;
+  box-shadow: 7px 7px 0px 0px #0b2447;
+  transition: all 0.5s;
+}
+
+.input:focus {
+  box-shadow: none;
+  transition: all 0.5s;
+}
+
+.label {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  color: #0b2447;
+  transition: all 0.5s;
+  transform: scale(0);
+  z-index: -1;
+}
+
+.input-container .topline {
+  position: absolute;
+  content: "";
+  background-color: #0b2447;
+  width: 0%;
+  height: 2px;
+  right: 0;
+  top: 0;
+  transition: all 0.5s;
+}
+
+.input-container input[type="text"]:focus ~ .topline {
+  width: 35%;
+  transition: all 0.5s;
+}
+
+.input-container .underline {
+  position: absolute;
+  content: "";
+  background-color: #0b2447;
+  width: 0%;
+  height: 2px;
+  right: 0;
+  bottom: 0;
+  transition: all 0.5s;
+}
+
+.input-container input[type="text"]:focus ~ .underline {
+  width: 100%;
+  transition: all 0.5s;
+}
+
+.input-container input[type="text"]:focus ~ .label {
+  top: -10px;
+  transform: scale(1);
+  transition: all 0.5s;
+}
+
+/* ===== Login.css ===== */
+/* Place this CSS in src/Login.css */
+.loading-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.loader-box {
+  background: #111;
+  padding: 30px 40px;
+  border-radius: 12px;
+  text-align: center;
+  width: 300px;
+  box-shadow: 0 0 30px rgba(0, 255, 255, 0.25);
+}
+
+.loader-text {
+  color: #00f7ff;
+  letter-spacing: 1px;
+  margin-bottom: 15px;
+  font-family: monospace;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 10px;
+  background: #222;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #00f7ff, #00ffa2);
+  transition: width 0.15s ease;
+}
+
+.percent {
+  display: block;
+  margin-top: 10px;
+  color: #fff;
+  font-family: monospace;
+}
+/* ===== Auth.css ===== */
+.auth-container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+}
+
+.auth-card {
+  width: 360px;
+  background: #fff;
+  padding: 40px;
+  border-radius: 15px;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+  animation: fadeUp 0.7s ease;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.title {
+  text-align: center;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.subtitle {
+  text-align: center;
+  color: #777;
+  margin-bottom: 25px;
+}
+
+.input-group {
+  position: relative;
+  margin-bottom: 22px;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-bottom: 2px solid #ccc;
+  outline: none;
+}
+
+.input-group label {
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  transform: translateY(-50%);
+  font-size: 14px;
+  color: #999;
+  transition: 0.3s;
+}
+
+.input-group input:focus + label,
+.input-group input:valid + label {
+  top: -6px;
+  font-size: 12px;
+  color: #667eea;
+}
+
+.toggle {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 12px;
+  cursor: pointer;
+  color: #667eea;
+}
+
+.auth-btn {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 25px;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.footer-text {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 14px;
+}
+
+.footer-text span {
+  color: #667eea;
+  cursor: pointer;
+  font-weight: bold;
 }
