@@ -8,7 +8,7 @@ export default function VideoPage() {
   useEffect(() => {
     const timer = setTimeout(() => {
       navigate("/Mainpage");
-    }, 11000);
+    }, 5000);
 
     return () => clearTimeout(timer);
   }, []);

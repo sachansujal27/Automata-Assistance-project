@@ -3,38 +3,18 @@ import React, { useEffect, useState } from "react";
 /* ================= MAIN APP ================= */
 
 export default function Auto2() {
-  useEffect(() => {
-    alexSpeak("Hello! Welcome to the NFA to DFA Converter.");
-  }, []);
-
-  // 1️⃣ States for user input
-  const [statesInput, setStatesInput] = useState(""); // Example: q0,q1,q2
-  const [alphabetInput, setAlphabetInput] = useState(""); // Example: 0,1
-  const [startState, setStartState] = useState(""); // Example: q0
-  const [finalStatesInput, setFinalStatesInput] = useState(""); // Example: q2
+  // Inputs
+  const [statesInput, setStatesInput] = useState("");
+  const [alphabetInput, setAlphabetInput] = useState("");
+  const [startState, setStartState] = useState("");
+  const [finalStatesInput, setFinalStatesInput] = useState("");
   const [transitionsInput, setTransitionsInput] = useState("");
-  /* Example: q0,0->q0,q1; q0,1->q0; q1,0->q2 */
-  // reset
-  const resetAll = () => {
-    setStatesInput("");
-    setAlphabetInput("");
-    setStartState("");
-    setFinalStatesInput("");
-    setTransitionsInput("");
 
-    // Clear DFA and simulation results
-    setDfaResult(null);
-    setInputString("");
-    setSimulationResult("");
-
-    // Clear errors
-    setError("");
-  };
-  // 2️⃣ DFA result
+  // Output
   const [dfaResult, setDfaResult] = useState(null);
+  const [error, setError] = useState("");
 
   /* ================= ALEX SPEECH ================= */
-
   const alexSpeak = (text) => {
     if (!window.speechSynthesis) return;
 
@@ -47,46 +27,76 @@ export default function Auto2() {
     window.speechSynthesis.speak(utterance);
   };
 
-  /* ================= PARSE USER INPUT ================= */
-  const parseNFA = () => {
-    // Split states and alphabet
-    const states = statesInput.split(",").map((s) => s.trim());
-    const alphabet = alphabetInput.split(",").map((s) => s.trim());
-    const finalStates = finalStatesInput.split(",").map((s) => s.trim());
+  useEffect(() => {
+    alexSpeak("Hello! Welcome to the NFA to DFA Converter.");
+  }, []);
 
-    // Parse transitions
-    const transitions = {};
-    transitionsInput.split(";").forEach((t) => {
-      t = t.trim();
-      if (!t) return;
-      // Format: q0,0->q0,q1
-      const [left, right] = t.split("->").map((s) => s.trim());
-      const [from, symbol] = left.split(",").map((s) => s.trim());
-      const toStates = right.split(",").map((s) => s.trim());
-
-      if (!transitions[from]) transitions[from] = {};
-      transitions[from][symbol] = toStates;
-    });
-
-    return { states, alphabet, startState, finalStates, transitions };
+  /* ================= RESET ================= */
+  const resetAll = () => {
+    setStatesInput("");
+    setAlphabetInput("");
+    setStartState("");
+    setFinalStatesInput("");
+    setTransitionsInput("");
+    setDfaResult(null);
+    setError("");
+    alexSpeak("Reset complete.");
   };
 
-  /* ================= NFA → DFA CONVERTER ================= */
+  /* ================= PARSE NFA ================= */
+  const parseNFA = () => {
+    try {
+      const states = statesInput.split(",").map((s) => s.trim());
+      const alphabet = alphabetInput.split(",").map((s) => s.trim());
+      const finalStates = finalStatesInput.split(",").map((s) => s.trim());
+
+      const transitions = {};
+
+      transitionsInput.split(";").forEach((t) => {
+        t = t.trim();
+        if (!t) return;
+
+        const [left, right] = t.split("->").map((s) => s.trim());
+        const [from, symbol] = left.split(",").map((s) => s.trim());
+        const toStates = right.split(",").map((s) => s.trim());
+
+        if (!transitions[from]) transitions[from] = {};
+        transitions[from][symbol] = toStates;
+      });
+
+      return { states, alphabet, startState, finalStates, transitions };
+    } catch (err) {
+      setError("Invalid transition format.");
+      return null;
+    }
+  };
+
+  /* ================= CONVERT ================= */
   const convertNFAtoDFA = () => {
-    const { alphabet, startState, finalStates, transitions } = parseNFA();
+    setError("");
+
+    const data = parseNFA();
+    if (!data) return;
+
+    const { alphabet, startState, finalStates, transitions } = data;
+
+    if (!startState) {
+      setError("Please enter start state.");
+      return;
+    }
 
     const dfaStates = [];
     const dfaTransitions = {};
     const dfaFinalStates = [];
 
-    const queue = [[startState]]; // Start DFA state = set containing start state
+    const queue = [[startState]];
     const visited = new Set();
 
     while (queue.length > 0) {
       const current = queue.shift();
-      const key = current.sort().join(","); // Unique key for set
+      const key = current.sort().join(",");
 
-      if (visited.has(key)) continue; // Already processed
+      if (visited.has(key)) continue;
       visited.add(key);
       dfaStates.push(current);
 
@@ -101,12 +111,16 @@ export default function Auto2() {
         });
 
         const nextArray = [...nextSet];
-        dfaTransitions[key][symbol] = nextArray.join(",");
-        if (nextArray.length > 0) queue.push(nextArray);
+        const nextKey = nextArray.join(",");
+
+        dfaTransitions[key][symbol] = nextKey || "∅";
+
+        if (nextArray.length > 0) {
+          queue.push(nextArray);
+        }
       });
     }
 
-    // DFA final states
     dfaStates.forEach((stateSet) => {
       if (stateSet.some((s) => finalStates.includes(s))) {
         dfaFinalStates.push(stateSet.join(","));
@@ -114,115 +128,107 @@ export default function Auto2() {
     });
 
     setDfaResult({ dfaStates, dfaTransitions, dfaFinalStates });
+
+    // Alex speaks result
+    alexSpeak("Conversion complete. DFA result generated.");
   };
 
-  /* -------- Reset -------- */
-  const reset = () => {
-    setInput("");
-    setPath([]);
-    setStep(0);
-
-    setExplanation("");
-    setRunning(false);
-    window.speechSynthesis.cancel();
-  };
   /* ================= UI ================= */
   return (
-    <>
-      <div className="bg2">
-        <div className="card2">
-          <div style={{ padding: "20px", fontFamily: "Arial" }}>
-            <h1>🔁 User-defined NFA → DFA Converter</h1>
+    <div className="bg2">
+      <div className="card2">
+        <div style={{ padding: "20px", fontFamily: "Arial" }}>
+          <h1>🔁 User-defined NFA → DFA Converter</h1>
 
-            {/* User Input */}
-            <div className="input1">
-              <label>States (comma-separated): </label>
-              <input
-                value={statesInput}
-                onChange={(e) => setStatesInput(e.target.value)}
-                placeholder="q0,q1,q2"
-              />
-            </div>
+          {error && <p style={{ color: "red" }}>{error}</p>}
 
-            <div className="input1">
-              <label>Alphabet (comma-separated): </label>
-              <input
-                value={alphabetInput}
-                onChange={(e) => setAlphabetInput(e.target.value)}
-                placeholder="0,1"
-              />
-            </div>
+          <div className="input1">
+            <label>States:</label>
+            <input
+              value={statesInput}
+              onChange={(e) => setStatesInput(e.target.value)}
+              placeholder="q0,q1,q2"
+            />
+          </div>
 
-            <div className="input1">
-              <label>Start State: </label>
-              <input
-                value={startState}
-                onChange={(e) => setStartState(e.target.value)}
-                placeholder="q0"
-              />
-            </div>
+          <div className="input1">
+            <label>Alphabet:</label>
+            <input
+              value={alphabetInput}
+              onChange={(e) => setAlphabetInput(e.target.value)}
+              placeholder="0,1"
+            />
+          </div>
 
-            <div className="input1">
-              <label>Final States (comma-separated): </label>
-              <input
-                value={finalStatesInput}
-                onChange={(e) => setFinalStatesInput(e.target.value)}
-                placeholder="q2"
-              />
-            </div>
-            <div className="input1">
-              <label>
-                Transitions (format: q0,0-&gt;q0,q1; q0,1-&gt;q0; q1,0-&gt;q2):
-              </label>
-              <input
-                value={transitionsInput}
-                onChange={(e) => setTransitionsInput(e.target.value)}
-                style={{ width: "80%" }}
-              />
-            </div>
+          <div className="input1">
+            <label>Start State:</label>
+            <input
+              value={startState}
+              onChange={(e) => setStartState(e.target.value)}
+              placeholder="q0"
+            />
+          </div>
 
-            <div className="buttons">
-              <button
-                class="button"
-                onClick={convertNFAtoDFA}
-                style={{ marginTop: "10px" }}
-              >
-                <div class="button-top">▶ Run</div>
-                <div class="button-bottom"></div>
-                <div class="button-base"></div>
-              </button>
-            </div>
-            <button className="button" onClick={reset}>
+          <div className="input1">
+            <label>Final States:</label>
+            <input
+              value={finalStatesInput}
+              onChange={(e) => setFinalStatesInput(e.target.value)}
+              placeholder="q2"
+            />
+          </div>
+
+          <div className="input1">
+            <label>Transitions:</label>
+            <input
+              value={transitionsInput}
+              onChange={(e) => setTransitionsInput(e.target.value)}
+              placeholder="q0,0->q0,q1; q0,1->q0; q1,0->q2"
+              style={{ width: "80%" }}
+            />
+          </div>
+
+          <div className="buttons">
+            <button className="button" onClick={convertNFAtoDFA}>
+              ▶ Run
+            </button>
+
+            <button className="button" onClick={resetAll}>
               🔄 Reset
             </button>
-            <div className="buttons"></div>
-            {/* DFA Output */}
-            {dfaResult && (
-              <div style={{ marginTop: "20px" }}>
-                <h2>DFA States:</h2>
-                {dfaResult.dfaStates.map((s, i) => (
-                  <div key={i}>{`{ ${s.join(", ")} }`}</div>
-                ))}
-
-                <h2>DFA Transitions:</h2>
-                {Object.entries(dfaResult.dfaTransitions).map(
-                  ([state, trans], i) => (
-                    <div key={i}>
-                      <b>{`{${state}}`}</b> → 0 : {trans["0"] || "∅"} , 1 :{" "}
-                      {trans["1"] || "∅"}
-                    </div>
-                  ),
-                )}
-
-                <h2>DFA Final States:</h2>
-                {dfaResult.dfaFinalStates.map((f, i) => (
-                  <div key={i}>{`{ ${f} }`}</div>
-                ))}
-              </div>
-            )}
           </div>
+
+          {/* DFA RESULT */}
+          {dfaResult && (
+            <div style={{ marginTop: "20px" }}>
+              <h2>DFA States:</h2>
+              {dfaResult.dfaStates.map((s, i) => (
+                <div key={i}>{`{ ${s.join(", ")} }`}</div>
+              ))}
+
+              <h2>DFA Transitions:</h2>
+              {Object.entries(dfaResult.dfaTransitions).map(
+                ([state, trans], i) => (
+                  <div key={i}>
+                    <b>{`{${state}}`}</b> →
+                    {Object.entries(trans).map(([sym, dest]) => (
+                      <span key={sym}>
+                        {" "}
+                        {sym} : {dest}
+                      </span>
+                    ))}
+                  </div>
+                ),
+              )}
+
+              <h2>DFA Final States:</h2>
+              {dfaResult.dfaFinalStates.map((f, i) => (
+                <div key={i}>{`{ ${f} }`}</div>
+              ))}
+            </div>
+          )}
         </div>
       </div>
-    </>
+    </div>
   );
 }

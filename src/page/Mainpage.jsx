@@ -1,10 +1,10 @@
-import React, { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import React from "react";
+import { useNavigate, Link } from "react-router-dom";
+import "../App.css";
 
 const Mainpage = () => {
   const navigate = useNavigate();
 
-  // Text-to-speech
   const speak = (text, happy = true) => {
     if (!("speechSynthesis" in window)) return;
 
@@ -17,98 +17,76 @@ const Mainpage = () => {
     window.speechSynthesis.speak(utterance);
   };
 
-  // Navigation + speech helper
   const goTo = (path, message) => {
     navigate(path);
     speak(message);
   };
 
-  useEffect(() => {
-    const SpeechRecognition =
-      window.SpeechRecognition || window.webkitSpeechRecognition;
-
-    if (!SpeechRecognition) {
-      console.warn("Speech Recognition not supported");
-      return;
-    }
-
-    const recognition = new SpeechRecognition();
-    recognition.continuous = true;
-    recognition.interimResults = false;
-    recognition.lang = "en-US";
-
-    recognition.onresult = (event) => {
-      const transcript = event.results[event.results.length - 1][0].transcript
-        .toLowerCase()
-        .trim();
-
-      console.log("Heard:", transcript);
-
-      if (transcript.includes("open dfa")) {
-        goTo("/Home", "Yes, I opened DFA now");
-      } else if (transcript.includes("open nfa")) {
-        goTo("/Home1", "Yes, I opened NFA now");
-      } else if (transcript.includes("converter")) {
-        goTo("/Home3", "Yes, I opened NFA to DFA converter now");
-      } else if (transcript.includes("minimization")) {
-        goTo("/Home4", "Yes, I opened DFA Minimization now");
-      } else if (
-        transcript.includes("go back") ||
-        transcript.includes("original page")
-      ) {
-        goTo("/", "Yes, I opened the original page now");
-      }
-    };
-
-    recognition.onerror = (err) => {
-      console.error("Speech recognition error:", err);
-    };
-
-    recognition.start();
-
-    return () => {
-      recognition.stop();
-    };
-  }, [navigate]);
-
   return (
-    <div className="container">
-      <div className="menu">
-        <div
-          className="menu-item dfa"
-          onClick={() => goTo("/Home", "Yes, I opened DFA now")}
-        >
-          DFA <span>⚙️</span>
+    <div className="main-container">
+      <div className="overlay">
+        <h1 className="main-title">Automata Model & Simulator</h1>
+        <p className="main-subtitle">
+          Learn, Explore, Convert and Visualize Automata in a simple way
+        </p>
+
+        <div className="menu-row first-row">
+          <div
+            className="menu-card dfa"
+            onClick={() => goTo("/Home", "Yes, I opened DFA now")}
+          >
+            <div className="icon">⚙️</div>
+            <h2>DFA</h2>
+            <p>Learn Deterministic Finite Automata with examples.</p>
+          </div>
+
+          <div
+            className="menu-card nfa"
+            onClick={() => goTo("/Home1", "Yes, I opened NFA now")}
+          >
+            <div className="icon">🧠</div>
+            <h2>NFA</h2>
+            <p>Understand Non-Deterministic Finite Automata easily.</p>
+          </div>
+
+          <div
+            className="menu-card converter"
+            onClick={() => goTo("/Home3", "Yes, I opened converter now")}
+          >
+            <div className="icon">🔀</div>
+            <h2>NFA to DFA</h2>
+            <p>Convert NFA to DFA step by step.</p>
+          </div>
         </div>
 
-        <div
-          className="menu-item nfa"
-          onClick={() => goTo("/Home1", "Yes, I opened NFA now")}
-        >
-          NFA <span>⚙️</span>
+        <div className="menu-row second-row">
+          <div
+            className="menu-card minimization"
+            onClick={() => goTo("/Home4", "Yes, I opened minimization now")}
+          >
+            <div className="icon">📊</div>
+            <h2>Minimization</h2>
+            <p>Reduce DFA states and simplify automata.</p>
+          </div>
+
+          <div
+            className="menu-card diagram"
+            onClick={() => goTo("/Home5", "Yes, I opened DFA diagram now")}
+          >
+            <div className="icon">✂️</div>
+            <h2>Diagram</h2>
+            <p>Create and understand DFA diagrams visually.</p>
+          </div>
         </div>
 
-        <div
-          className="menu-item tm"
-          onClick={() =>
-            goTo("/Home3", "Yes, I opened NFA to DFA converter now")
-          }
-        >
-          Converter NFA to DFA <span>🔀</span>
-        </div>
+        <div className="bottom-btn-row">
+          <Link to="/quiz" className="bottom-link">
+            <button className="quiz-btn-style">Quiz 🎯</button>
+          </Link>
 
-        <div
-          className="menu-item compare"
-          onClick={() => goTo("/Home4", "Yes, I opened DFA Minimization now")}
-        >
-          DFA Minimization <span>📊</span>
-        </div>
-
-        <div
-          className="menu-item min"
-          onClick={() => goTo("/Home5", "Yes, I opened DFA Diagram now")}
-        >
-          DFA Diagram <span>✂️</span>
+          <Link to="/VideoPages" className="bottom-link">
+            <button className="video-btn-style">Video 🎥</button>
+          </Link>
         </div>
       </div>
     </div>
