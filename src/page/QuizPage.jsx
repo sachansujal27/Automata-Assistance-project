@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import "../App.css";
 
-const Quizpage = () => {
+const QuizPage = () => {
   const quizData = [
     {
       id: 1,
@@ -343,4 +343,4 @@ const Quizpage = () => {
   );
 };
 
-export default Quizpage;
+export default QuizPage;
