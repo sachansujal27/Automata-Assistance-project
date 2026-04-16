@@ -22,7 +22,7 @@ import Signup from "./page/Signup";
 import { Login } from "./page/Login";
 import VideoPage from "./page/VideoPage";
 import VideoPages from "./page/Videopages";
-import QuizPage from "./page/Quizpage";
+import Quizpage from "./page/Quizpage";
 
 function App() {
   const navigate = useNavigate();
@@ -123,7 +123,7 @@ function App() {
       <Route path="/Signup" element={<Signup />} />
 
       <Route path="/Mainpage" element={<Mainpage />} />
-      <Route path="/quiz" element={<QuizPage />} />
+      <Route path="/quiz" element={<Quizpage />} />
 
       <Route path="/video" element={<VideoPage />} />
       <Route path="/VideoPages" element={<VideoPages />} />
